@@ -4,10 +4,13 @@ from app import db
 class papers(db.Model):
     id = db.Column("paper_id", db.Integer, primary_key=True, autoincrement=True)
     paper = db.Column(db.String(100))
-    player = db.Column(db.Integer, db.ForeignKey("player.player_id"))
+    playerID = db.Column(db.Integer, db.ForeignKey("player.player_id"))
+    score = db.Column(db.Integer)
 
-    def __init__(self, paper_json):
+    def __init__(self, playerID, paper_json):
+        self.playerID = playerID
         self.paper = paper_json
+        self.score = 0
 
 
 # 试卷要求不能重复使用同一句诗词，所以需要记录一下每个试卷的历史答题诗句

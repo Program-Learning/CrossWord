@@ -12,7 +12,7 @@ def player_required(func):
         if 'player_id' not in session:
             return jsonify({"code": 1, 'message': 'player_id not in session'}), 401
 
-        player = player.query.get(session['player_id'])
+        player = Player.query.get(session['player_id'])
         if not player:
             return jsonify({"code": 1, 'message': 'player not found'}), 401
 

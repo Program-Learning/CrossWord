@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="message"></div>
+    <div class="login_box">
+        <div class="paper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>游戏编号</th>
+                        <th>游戏状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%- for paper in my_papers: %}
+                    <tr>
+                        <td>{{ paper.id }}</td>
+                        <td>{{ paper.score }}</td>
+                        <!-- <td>{{ paper.paper }}</td> -->
+                        <td>
+                            <button onclick="location.href='/player/play/{{ paper.id }}'">继续</button>
+                        </td>
+                    </tr>
+                    {%- endfor %}
+                    <tr>
+                        <td>新游戏</td>
+                        <td>新游戏</td>
+                        <td>
+                            <button onclick="location.href='/player/create_game'">新游戏</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
