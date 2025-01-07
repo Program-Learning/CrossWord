@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>玩家登录</title>
+    <script>
+        const loginPlayerUrl = "{{ url_for('player.login_player') }}";
+        const dashboardPlayerUrl = "{{ url_for('player.dashboard_player_web') }}";
+    </script>
+    <script src="{{url_for('static', filename='js/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/custom_message_box.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/custom_message_box.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/login_player_web.css')}}">
+    <script src="{{url_for('static', filename='js/login_player_web.js')}}"></script>
+
+</head>
+
+<body>
+    <div id="message"></div>
+    <div id="login_box">
+        <h2 style="text-align: center">玩家登录</h2>
+        <form id="loginForm">
+            <label for="username">用户名:</label>
+            <input type="text" id="username" name="username" placeholder="用户名"><br>
+            <label for="password">密码:</label>
+            <input type="password" id="password" name="password" placeholder="密码"><br>
+            <button type="submit">登录</button>
+        </form>
+        <a href="{{ url_for('player.register_player_web') }}">注册</a>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理员面板</title>
+    <script>
+        const logoutAdminUrl = "{{ url_for('admin.logout_admin_web') }}";
+        const uploadCsvUrl = "{{ url_for('admin.upload_csv') }}";
+        const showUrl = "{{ url_for('admin.show') }}";
+        const newPoemUrl = "{{ url_for('admin.new_poem') }}";
+        const deleteAdminUrl = "{{ url_for('admin.delete_admin') }}";
+        const queryAdminUrl = "{{ url_for('admin.query_admin') }}";
+        const addAdminUrl = "{{ url_for('admin.add_admin') }}";
+    </script>
+    
+    <!-- 引入外部 CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_admin_web.css') }}">
+
+    <!-- 引入外部 JavaScript -->
+    <script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/custom_message_box.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dashboard_admin_web.js') }}"></script>
+</head>
+
+<body>
+    <div id="message" class="message-box"></div>
+    <div id="login_box">
+        <div style="margin: 25px 25px">
+            <button onclick="logoutAdmin()">退出登录</button>
+        </div>
+        <div style="margin: 25px 25px">
+            <button onclick="upload_csv_web()">上传csv题库</button>
+        </div>
+        <div style="margin: 25px 25px">
+            <button onclick="new_poem_web()">上传单条诗词题库</button>
+        </div>
+        <div style="margin: 25px 25px">
+            <button onclick="show_web()">查看数据库</button>
+        </div>
+    </div>
+    <div id="adminTable"></div>
+</body>
+
+</html>

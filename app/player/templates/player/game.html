@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诗词煎饼摊</title>
+    <script src="{{ url_for("static",filename="js/jquery-3.7.1.min.js") }}"></script>
+    <script src="{{ url_for("static",filename="js/index.js") }}"></script>
+    <script src="{{ url_for("static",filename="js/layui.js") }}"></script>
+    <link rel="stylesheet" href="{{ url_for("static",filename="css/layui.css") }}">
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css">
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
+    <link rel="icon" href="{{ url_for("static",filename="img/logo.ico") }}">
+    <script src="{{ url_for("static",filename="js/music_controller.js") }}"></script>
+
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: repeat({{ PaperJson.width }}, 1fr);
+            grid-template-rows: repeat({{ PaperJson.height }}, 1fr);
+            width: 100vw;
+            height: 100vw; /* 让容器成为一个正方形 */
+        }
+
+        .default{
+            font-size: {{ 75/PaperJson.width }}vw;
+            font-family: SimSun;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #000; /* 为了显示每个单元格，你可以根据需要调整样式 */
+            background-color: lightblue;
+            border-radius: 5px;
+        }
+
+        .word_back{
+            font-size: {{ 75/PaperJson.width }}vw;
+            font-family: SimSun;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #000; /* 为了显示每个单元格，你可以根据需要调整样式 */
+            background-color: yellow;
+            border-radius: 5px;
+        }
+
+        .click_back{
+            font-size: {{ 75/PaperJson.width }}vw;
+            font-family: SimSun;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #000; /* 为了显示每个单元格，你可以根据需要调整样式 */
+            background-color: red;
+            border-radius: 5px;
+        }
+{#默认蓝，有字黄，点击红#}
+
+    </style>
+</head>
+<body>
+
+<div class="score"><button id="logout" class="layui-btn layui-bg-red">退出登录</button>分数：{{ PaperJson.score }}</div>
+
+{#
+flask html template
+{{ PaperJson.data[i][j] }} 为一个字，占满整个.column div
+效果是
+1.整个container为一个正方形 长为100vw
+2.container内部每行有PaperJson.width个元素
+3.container内部有PaperJson.height行
+4.每个word div为正方形，所有word div加起来占满整个container
+#}
+<div class="container">
+    {# Flask HTML 模板 #}
+    {% for i in range(PaperJson.height) %}
+        {% for j in range(PaperJson.width) %}
+            {% if(PaperJson.data[i][j] ) %}
+                <div class="word_back" id="{{ i }}_{{ j }}">
+                    {{ PaperJson.data[i][j] }}
+                </div>
+            {% else %}
+                <div class="default" id="{{ i }}_{{ j }}">
+                    {{ PaperJson.data[i][j] }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+</div>
+<div style="border-style: solid; border-width: 2px; padding: 1vw;">
+    <label for="poem">诗词内容</label>
+    <input id='poem' class="layui-input" type="text">
+    <br>
+
+    <label for="row">首个汉字第几行</label>
+    <input id='row' class="layui-input" type="text">
+    <br>
+
+    <label for="col">首个汉字第几列</label>
+    <input id='col' class="layui-input" type="text">
+    <br>
+
+    <label for="direction">方向</label>
+    <div class="layui-form layui-row layui-col-space16">
+    <div class="layui-col-md6">
+    <select name="direction" id="direction">
+        <option value="right">→</option>
+        <option value="down">↓</option>
+        <option value="left">←</option>
+        <option value="up">↑</option>
+    </select>
+    </div>
+    </div>
+    <br>
+
+    <button id="upload" class="layui-btn layui-bg-blue">提交</button>
+</div>
+<audio src="{{ url_for("static",filename="music/鲸鱼音频.MP3") }}" id="background-music" controls="controls" loop="loop" autoplay="autoplay"></audio>
+
+</body>
+</html>

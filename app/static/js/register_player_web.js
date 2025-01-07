@@ -1,0 +1,37 @@
+$(document).ready(function () {
+    $('#registerForm').submit(function (event) {
+        event.preventDefault();
+        let username = $('#username').val().trim();
+        let password = $('#password').val().trim();
+
+        // 简单的表单验证
+        if (username === '' || password === '') {
+            showMessage("error", "请输入用户名和密码。", "message", 3000);
+            return;
+        }
+
+        let formData = {
+            username: username,
+            password: password
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: registerPlayerUrl,
+            data: JSON.stringify(formData),
+            contentType: 'application/json',
+            success: function (response) {
+                if (response.code === 0) {
+                    // 注册成功，重定向到登录页面或其他页面
+                    window.location.replace(loginPlayerUrl);
+                } else {
+                    // 注册失败，显示错误消息
+                    showMessage("error", response.message, "message", 3000);
+                }
+            },
+            error: function () {
+                showMessage("error", "网络错误，请稍后再试。", "message", 3000);
+            }
+        });
+    });
+});

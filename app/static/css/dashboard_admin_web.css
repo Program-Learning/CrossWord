@@ -1,0 +1,64 @@
+body {
+    position: relative;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background: url("../img/admin.webp") no-repeat center;
+    background-size: cover;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 6px;
+}
+
+#login_box {
+    background-color: rgba(226, 234, 244, 0.5);
+    height: 300px;
+    width: 1200px;
+    margin: 250px 150px;
+    border-radius: 20px;
+    padding: 50px;
+}
+
+#adminTable {
+    position: absolute;
+    top: 200px;
+    left: 500px;
+}

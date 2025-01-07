@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诗词煎饼摊</title>
+    <script src="{{ url_for("static",filename="js/layui.js") }}"></script>
+    <link href="{{ url_for("static",filename="css/layui.css") }}" rel="stylesheet">
+    <link rel="icon" href="{{ url_for("static",filename="img/logo.ico") }}">
+    <script src="{{ url_for("static",filename="js/music_controller.js") }}"></script>
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css">
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
+</head>
+<body>
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
+        <h1>诗词煎饼摊</h1>
+        <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" onclick="window.location.href='/genPaper';">开始游戏</button>
+
+    </div>
+    <audio src="{{ url_for("static",filename="music/鲸鱼音频.MP3") }}" id="background-music" controls="controls" loop="loop" autoplay="autoplay"></audio>
+</body>
+</html>

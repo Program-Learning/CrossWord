@@ -1,0 +1,60 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+    padding: 0;
+    background: url("../img/login_admin_web.webp") no-repeat center;
+    background-size: cover;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+form {
+    max-width: 300px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+a {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #1e90ff;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#login_box {
+    background-color: rgba(226, 234, 244, 0.5);
+    height: 300px;
+    width: 250px;
+    margin: 250px auto;
+    border-radius: 20px;
+    padding: 50px;
+}

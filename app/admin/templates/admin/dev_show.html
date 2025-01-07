@@ -1,0 +1,68 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>数据库列表</title>
+</head>
+<body>
+<h3>
+    <a href="{{ url_for('admin.show') }}">数据库列表</a>
+</h3>
+<hr/>
+{%- for message in get_flashed_messages() %}
+    {{ message }}
+{%- endfor %}
+<h3>paper (<a href="{{ url_for('admin.new_paper') }}">添加
+</a>)</h3>
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>paper</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for paper in papers %}
+        <tr>
+            <td>{{ paper.id }}</td>
+            <td>{{ paper.paper }}</td>
+        </tr>
+    {% endfor %}
+    <h3>poem (<a href="{{ url_for('admin.new_poem') }}">添加
+    </a>)</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>poem</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for poem in poems %}
+            <tr>
+                <td>{{ poem.id }}</td>
+                <td>{{ poem.poem }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<h3>history</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>paperID</th>
+            <th>history</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for history in historys %}
+            <tr>
+                <td>{{ history.id }}</td>
+                <td>{{ history.paperID }}</td>
+                <td>{{ history.history }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
