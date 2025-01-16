@@ -188,7 +188,7 @@ def upload_csv():
             flash("CSV file imported successfully!")
             return "上传成功"
         else:
-            flash("Allowed file types are txt, pdf, png, jpg, jpeg, gif")
+            flash("Allowed file types is only csv")
             return redirect(request.url)
     else:
         return render_template("admin/upload_csv.html")  # 显示一个文件上传表单
