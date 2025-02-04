@@ -35,4 +35,29 @@ $(document).ready(function () {
         });
     });
 
+    $('#anonymousLoginButton').click(function () {
+        let guestData = {
+            username: 'Anonymous',
+            password: 'Anonymous'
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: loginPlayerUrl,
+            data: JSON.stringify(guestData),
+            contentType: 'application/json',
+            success: function (response) {
+                if (response.code === 0) {
+                    // Login successful, redirect to patient dashboard or other page
+                    window.location.replace(dashboardPlayerUrl);
+                } else {
+                    // Login failed, show error message
+                    showMessage("error", response.message, "message", 3000);
+                }
+            },
+            error: function () {
+                showMessage("error", "网络错误，请稍后再试。", "message", 3000);
+            }
+        });
+    });
 });

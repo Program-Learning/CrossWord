@@ -6,120 +6,206 @@
     <title>诗词煎饼摊</title>
     <script>
         const submitUrl = "{{url_for('player.submit', paper_id=PaperID)}}"
+        const finishPaperUrl = "{{url_for('player.finishPaper', paper_id=PaperID)}}"
         const logoutUrl = "{{url_for('player.logout_player')}}"
     </script>
-    <script src="{{ url_for("static",filename="js/jquery-3.7.1.min.js") }}"></script>
-    <script src="{{ url_for("static",filename="js/game.js") }}"></script>
-    <script src="{{ url_for("static",filename="js/layui.js") }}"></script>
-    <link rel="stylesheet" href="{{ url_for("static",filename="css/layui.css") }}">
-    <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css">
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
-    <link rel="icon" href="{{ url_for("static",filename="img/logo.ico") }}">
-    <script src="{{ url_for("static",filename="js/music_controller.js") }}"></script>
+    <script src="{{ url_for('static',filename='js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/game.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/layui.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/layui.css') }}">
+    <link rel="icon" href="{{ url_for('static',filename='img/logo.ico') }}">
+    <script src="{{ url_for('static',filename='js/music_controller.js') }}"></script>
 
     <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1E9FFF;
+        }
+
         .container {
             display: grid;
             grid-template-columns: repeat({{ PaperJson.width }}, 1fr);
             grid-template-rows: repeat({{ PaperJson.height }}, 1fr);
-            width: 100vw;
-            height: 100vw; /* 让容器成为一个正方形 */
+            width: 80vw;
+            height: 80vw;
+            margin: 0 auto;
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .default{
-            font-size: {{ 75/PaperJson.width }}vw;
-            font-family: SimSun;
+        .default {
+            font-size: {{ 60/PaperJson.width }}vw;
+            font-family: 'SimSun', serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid #000; /* 为了显示每个单元格，你可以根据需要调整样式 */
-            background-color: lightblue;
-            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            background-color: #E8F4FF;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .word_back{
-            font-size: {{ 75/PaperJson.width }}vw;
-            font-family: SimSun;
+        .word_back {
+            font-size: {{ 60/PaperJson.width }}vw;
+            font-family: 'SimSun', serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid #000; /* 为了显示每个单元格，你可以根据需要调整样式 */
-            background-color: yellow;
-            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            background-color: #FFE7BA;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
 
-        .click_back{
-            font-size: {{ 75/PaperJson.width }}vw;
-            font-family: SimSun;
+        .click_back {
+            font-size: {{ 60/PaperJson.width }}vw;
+            font-family: 'SimSun', serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid #000; /* 为了显示每个单元格，你可以根据需要调整样式 */
-            background-color: red;
-            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            background-color: #FFB6B9;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
-{#默认蓝，有字黄，点击红#}
 
+        .input-section {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .layui-input {
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .layui-select {
+            width: 100%;
+            border-radius: 4px;
+        }
+
+        #upload {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .audio-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        /* 悬停效果 */
+        .default:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* 按钮动画 */
+        .layui-btn {
+            transition: all 0.3s ease;
+        }
+
+        .layui-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
+    <div class="header">
+        <form>
+            <button id="logout" class="layui-btn layui-bg-red">退出登录</button>
+            <button id="finishPaper" class="layui-btn layui-bg-red">结束游戏</button>
+        </form>
+        <div class="score">当前分数：{{ PaperJson.score }}</div>
+    </div>
 
-<div class="score"><button id="logout" class="layui-btn layui-bg-red">退出登录</button>分数：{{ PaperJson.score }}</div>
-
-{#
-flask html template
-{{ PaperJson.data[i][j] }} 为一个字，占满整个.column div
-效果是
-1.整个container为一个正方形 长为100vw
-2.container内部每行有PaperJson.width个元素
-3.container内部有PaperJson.height行
-4.每个word div为正方形，所有word div加起来占满整个container
-#}
-<div class="container">
-    {# Flask HTML 模板 #}
-    {% for i in range(PaperJson.height) %}
-        {% for j in range(PaperJson.width) %}
-            {% if(PaperJson.data[i][j] ) %}
-                <div class="word_back" id="{{ i }}_{{ j }}">
-                    {{ PaperJson.data[i][j] }}
-                </div>
-            {% else %}
-                <div class="default" id="{{ i }}_{{ j }}">
-                    {{ PaperJson.data[i][j] }}
-                </div>
-            {% endif %}
+    <div class="container">
+        {% for i in range(PaperJson.height) %}
+            {% for j in range(PaperJson.width) %}
+                {% if(PaperJson.data[i][j] ) %}
+                    <div class="word_back" id="{{ i }}_{{ j }}">
+                        {{ PaperJson.data[i][j] }}
+                    </div>
+                {% else %}
+                    <div class="default" id="{{ i }}_{{ j }}">
+                        {{ PaperJson.data[i][j] }}
+                    </div>
+                {% endif %}
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-</div>
-<div style="border-style: solid; border-width: 2px; padding: 1vw;">
-    <label for="poem">诗词内容</label>
-    <input id='poem' class="layui-input" type="text">
-    <br>
-
-    <label for="row">首个汉字第几行</label>
-    <input id='row' class="layui-input" type="text">
-    <br>
-
-    <label for="col">首个汉字第几列</label>
-    <input id='col' class="layui-input" type="text">
-    <br>
-
-    <label for="direction">方向</label>
-    <div class="layui-form layui-row layui-col-space16">
-    <div class="layui-col-md6">
-    <select name="direction" id="direction">
-        <option value="right">→</option>
-        <option value="down">↓</option>
-        <option value="left">←</option>
-        <option value="up">↑</option>
-    </select>
     </div>
+
+    <div class="input-section">
+        <div class="input-group">
+            <label for="poem">诗词内容</label>
+            <input id='poem' class="layui-input" type="text" placeholder="请输入诗词内容">
+        </div>
+
+        <div class="input-group">
+            <label for="row">首个汉字第几行</label>
+            <input id='row' class="layui-input" type="number" placeholder="请输入行数">
+        </div>
+
+        <div class="input-group">
+            <label for="col">首个汉字第几列</label>
+            <input id='col' class="layui-input" type="number" placeholder="请输入列数">
+        </div>
+
+        <div class="input-group">
+            <label for="direction">方向</label>
+            <select name="direction" id="direction" class="layui-input">
+                <option value="right">向右 →</option>
+                <option value="down">向下 ↓</option>
+                <option value="left">向左 ←</option>
+                <option value="up">向上 ↑</option>
+            </select>
+        </div>
+
+        <button id="upload" class="layui-btn layui-bg-blue">提交</button>
     </div>
-    <br>
 
-    <button id="upload" class="layui-btn layui-bg-blue">提交</button>
-</div>
-<audio src="{{ url_for("static",filename="music/鲸鱼音频.MP3") }}" id="background-music" controls="controls" loop="loop" autoplay="autoplay"></audio>
-
+    <div class="audio-player">
+        <audio src="{{ url_for('static',filename='music/鲸鱼音频.MP3') }}" id="background-music" controls="controls" loop="loop" autoplay="autoplay"></audio>
+    </div>
 </body>
 </html>

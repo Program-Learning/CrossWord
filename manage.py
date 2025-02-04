@@ -34,7 +34,7 @@ def reinit_db():
     print("Initialized the config for the app.")
 
 
-def add_player(username: str = "common_player", password: str = "12345678"):
+def add_player(username: str = "Anonymous", password: str = "Anonymous"):
     from app.player.models import Player
 
     player = Player(username, password)

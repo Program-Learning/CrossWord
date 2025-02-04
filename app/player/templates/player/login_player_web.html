@@ -9,6 +9,10 @@
         const loginPlayerUrl = "{{ url_for('player.login_player') }}";
         const dashboardPlayerUrl = "{{ url_for('player.dashboard_player_web') }}";
     </script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
+    <script src="{{ url_for('static',filename='js/layui.js') }}"></script>
+    <link href="{{ url_for('static',filename='css/layui.css') }}" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static',filename='img/logo.ico') }}">
     <script src="{{url_for('static', filename='js/jquery-3.6.0.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/custom_message_box.js')}}"></script>
     <link rel="stylesheet" href="{{url_for('static', filename='css/custom_message_box.css')}}">
@@ -18,18 +22,31 @@
 </head>
 
 <body>
-    <div id="message"></div>
-    <div id="login_box">
-        <h2 style="text-align: center">玩家登录</h2>
-        <form id="loginForm">
-            <label for="username">用户名:</label>
-            <input type="text" id="username" name="username" placeholder="用户名"><br>
-            <label for="password">密码:</label>
-            <input type="password" id="password" name="password" placeholder="密码"><br>
-            <button type="submit">登录</button>
-        </form>
-        <a href="{{ url_for('player.register_player_web') }}">注册</a>
+    <div class="container">
+        <div class="decoration circle circle-1"></div>
+        <div class="decoration circle circle-2"></div>
 
+        <div class="content-box">
+            <h1>诗词煎饼摊</h1>
+            <div id="message"></div>
+            <div>
+                <form id="loginForm">
+                    <label for="username">用户名:</label>
+                    <input type="text" id="username" name="username" placeholder="请输入用户名" required><br>
+                    <label for="password">密码:</label>
+                    <input type="password" id="password" name="password" placeholder="请输入密码" required><br>
+                    <button type="submit" class="layui-btn layui-btn-normal layui-btn-radius start-btn">开始游戏</button>
+                </form>
+                <div style="text-align: center; margin-top: 10px;">
+                    <button id="anonymousLoginButton" class="layui-btn layui-btn-normal layui-btn-radius start-btn">游客登录</button>
+                </div>
+                <a href="{{ url_for('player.register_player_web') }}" style="margin-top: 10px;">注册</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="audio-player">
+        <audio src="{{ url_for('static',filename='music/鲸鱼音频.MP3') }}" id="background-music" controls="controls" loop="loop" autoplay="autoplay"></audio>
     </div>
 </body>
 

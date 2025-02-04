@@ -39,6 +39,7 @@ $(document).ready(function() {
         });
     });
     $("#logout").click(function() {
+        event.preventDefault();
         $.ajax({
             url: logoutUrl, // 替换为你的路由或 API 地址
             type: "POST", // 根据你的 API 要求的 HTTP 方法
@@ -57,6 +58,11 @@ $(document).ready(function() {
             },
         });
         // clearBrowserCookie();
+    });
+
+    $("#finishPaper").click(function() {
+        event.preventDefault();
+        window.location.href = finishPaperUrl;
     });
 
     $(".default , .word_back").click(function() {

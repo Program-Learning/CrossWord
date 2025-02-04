@@ -217,18 +217,18 @@ def create_game():
     paper = papers(session.get('player_id'),genPaperJson(28, 21))
     db.session.add(paper)
     db.session.commit()
-    return redirect(url_for('player.play', id=paper.id))
+    return redirect(url_for('player.play', paper_id=paper.id))
 
-@player.route('/play/<int:id>')
+@player.route('/play/<int:paper_id>')
 @player_required
-def play(id):
+def play(paper_id):
     try:
-        paper = papers.query.get(id)
+        paper = papers.query.get(paper_id)
     except:
         return "错误"
     if paper.playerID != session.get('player_id'):
         return "无权限"
-    return render_template('player/game.html', score=paper.score, PaperID=id, PaperJson=json.loads(paper.paper))
+    return render_template('player/game.html', score=paper.score, PaperID=paper_id, PaperJson=json.loads(paper.paper))
 
 
 # 用户答题请求上传函数
@@ -314,6 +314,19 @@ def submit(paper_id):
             ),
             405,
         )
+
+
+@player.route('/finishPaper/<int:paper_id>', methods=['GET', 'POST'])
+@player_required
+def finishPaper(paper_id):
+    paper = papers.query.get(paper_id)
+    if paper:
+        paper_data = json.loads(paper.paper)
+        # Generate HTML content with game results
+        return render_template('player/game_record.html',                 
+                            score=paper_data['score'],
+                            paper_data=paper_data['data'],
+                            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 
 # 检查诗词是否存在
