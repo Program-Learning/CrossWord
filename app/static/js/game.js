@@ -49,6 +49,7 @@ $(document).ready(function() {
                     location.reload();
                 } else {
                     alert(response.message);
+                    window.location.href = loginWebUrl;
                 }
                 // 在这里，你可以根据响应内容更新页面或其他操作
             },
