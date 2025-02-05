@@ -12,7 +12,9 @@ def create_app(config_class=Config):
 
     from app.admin.routes import admin
     from app.player.routes import player
+    from app.routes import index
 
+    app.register_blueprint(index, url_prefix='/')
     app.register_blueprint(admin, url_prefix='/admin')
     app.register_blueprint(player, url_prefix='/player')
 
