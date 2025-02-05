@@ -108,6 +108,9 @@ def get_player_profile():
 @player.route('/')
 @player_required_web
 def root_player():
+    player = Player.query.get(session['player_id'])
+    if player.username == 'Anonymous':
+        return redirect(url_for('player.create_game'))
     return redirect(url_for('player.dashboard_player_web'))
 
 @player.route('/dashboard_player_web')
