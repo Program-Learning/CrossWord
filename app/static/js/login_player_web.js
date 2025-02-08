@@ -22,10 +22,8 @@ $(document).ready(function () {
             contentType: 'application/json',
             success: function (response) {
                 if (response.code === 0) {
-                    // Login successful, redirect to patient dashboard or other page
                     window.location.replace(dashboardPlayerUrl);
                 } else {
-                    // Login failed, show error message
                     showMessage("error", response.message, "message", 3000);
                 }
             },
@@ -48,10 +46,8 @@ $(document).ready(function () {
             contentType: 'application/json',
             success: function (response) {
                 if (response.code === 0) {
-                    // Login successful, redirect to patient dashboard or other page
-                    window.location.replace(dashboardPlayerUrl);
+                    window.location.replace(rootPlayerUrl);
                 } else {
-                    // Login failed, show error message
                     showMessage("error", response.message, "message", 3000);
                 }
             },

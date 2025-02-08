@@ -4,7 +4,6 @@ $(document).ready(function () {
         let username = $('#username').val().trim();
         let password = $('#password').val().trim();
 
-        // Simple form validation
         if (username === '' || password === '') {
             showMessage("error", "请输入用户名和密码。", "message", 3000);
             return;
@@ -22,10 +21,8 @@ $(document).ready(function () {
             contentType: 'application/json',
             success: function (response) {
                 if (response.code === 0) {
-                    // Login successful, redirect to admin dashboard or other page
                     window.location.replace(dashboardAdminUrl);
                 } else {
-                    // Login failed, show error message
                     showMessage("error", response.message, "message", 3000);
                 }
             },
