@@ -22,5 +22,20 @@ $(document).ready(function() {
     $("#restartButton").click(function() {
         event.preventDefault();
         location.href = restartUrl;
-    }); 
+    });
+    $('#saveButton').click(function() {
+        // 使用 html2canvas 截取网页内容
+        html2canvas(document.body).then(function(canvas) {
+            // 将 canvas 转换为图片
+            var imgData = canvas.toDataURL('image/png');
+
+            // 创建一个链接元素
+            var link = document.createElement('a');
+            link.download = 'screenshot.png'; // 设置下载文件名
+            link.href = imgData; // 设置图片数据
+
+            // 模拟点击链接以触发下载
+            link.click();
+        });
+    });
 });
